@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ACP Audit Queue</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 24px; }
+    h1 { font-size: 22px; }
+    table { border-collapse: collapse; width: 100%; font-size: 13px; }
+    th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid #eee; vertical-align: top; }
+    th { background: #fafafa; }
+    button { padding: 4px 10px; margin-right: 6px; cursor: pointer; }
+    .pass { background: #d8f5d8; }
+    .fail { background: #ffd0d0; }
+    .muted { color: #666; }
+  </style>
+</head>
+<body>
+  <h1>Audit queue</h1>
+  {% if filter_reason %}
+    <div class="muted">Filter: reason={{ filter_reason }}</div>
+  {% endif %}
+  {% if findings %}
+  <table>
+    <tr><th>audit_id</th><th>event_id</th><th>reason</th><th>label</th></tr>
+    {% for f in findings %}
+    <tr>
+      <td>{{ f.audit_id }}</td>
+      <td>{{ f.event_id }}</td>
+      <td>{{ f.reason }}</td>
+      <td>
+        <form method="post" action="/v1/audit/{{ f.audit_id }}/decide" style="display:inline">
+          <button class="pass" name="human_label" value="pass">pass</button>
+          <button class="fail" name="human_label" value="fail">fail</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+    <div class="muted">No audits pending.</div>
+  {% endif %}
+  <p><a href="/dashboard">&larr; back to dashboard</a></p>
+</body>
+</html>

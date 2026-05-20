@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ACP Approvals</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 24px; }
+    h1 { font-size: 22px; }
+    table { border-collapse: collapse; width: 100%; font-size: 13px; }
+    th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid #eee; vertical-align: top; }
+    th { background: #fafafa; }
+    button { padding: 4px 10px; margin-right: 6px; cursor: pointer; }
+    .approve { background: #d8f5d8; }
+    .reject { background: #ffd0d0; }
+    .muted { color: #666; }
+    pre { margin: 0; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <h1>Pending approvals</h1>
+  {% if filter_agent %}
+    <div class="muted">Filter: agent_id={{ filter_agent }}</div>
+  {% endif %}
+  {% if approvals %}
+  <table>
+    <tr><th>approval_id</th><th>agent</th><th>tool</th><th>intent</th><th>args</th><th>decide</th></tr>
+    {% for a in approvals %}
+    <tr>
+      <td>{{ a.approval_id }}</td>
+      <td>{{ a.agent_id }}</td>
+      <td>{{ a.tool_name }}</td>
+      <td>{{ a.intent }}</td>
+      <td><pre>{{ a.args_json }}</pre></td>
+      <td>
+        <form method="post" action="/v1/approvals/{{ a.approval_id }}/decide" style="display:inline">
+          <button class="approve" name="decision" value="approved">approve</button>
+          <button class="reject" name="decision" value="rejected">reject</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+    <div class="muted">No approvals pending.</div>
+  {% endif %}
+  <p><a href="/dashboard">&larr; back to dashboard</a></p>
+</body>
+</html>

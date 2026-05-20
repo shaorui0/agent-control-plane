@@ -1,0 +1,21 @@
+{
+  "scenario_id": "01_cpu_spike",
+  "alert": "HighCPU payments-api",
+  "expected": {
+    "task_starts": 1,
+    "tool_calls_min": 2,
+    "denials": 0,
+    "judgment_verdict": "pass"
+  },
+  "agent_script": [
+    {"action": "tool", "tool": "vm_query", "args": {"query": "cpu_usage{pod=payments-api}"},
+     "intent": "checking cpu", "rationale": "alert says high cpu; verify"},
+    {"action": "tool", "tool": "loki_query", "args": {"query": "{app=payments}"},
+     "intent": "checking logs", "rationale": "look for error pattern"},
+    {"action": "tool", "tool": "kubectl_scale",
+     "args": {"deployment": "payments-api", "namespace": "payments", "replicas_delta": 1},
+     "intent": "scale payments-api by 1 to relieve cpu pressure",
+     "rationale": "metrics confirm sustained high cpu; +1 replica"},
+    {"action": "final", "answer": "scaled payments-api +1"}
+  ]
+}

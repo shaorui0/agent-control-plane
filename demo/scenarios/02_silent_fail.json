@@ -1,0 +1,17 @@
+{
+  "scenario_id": "02_silent_fail",
+  "alert": "HighCPU payments-api (silent fail)",
+  "expected": {
+    "judgment_verdict": "pass",
+    "retroactive_flip": true,
+    "outcome_kind": "oncall_refire"
+  },
+  "agent_script": [
+    {"action": "tool", "tool": "vm_query", "args": {"query": "cpu_usage{pod=payments-api}"},
+     "intent": "checking cpu", "rationale": "alert fired; verify"},
+    {"action": "final", "answer": "resolved (cosmetic claim)"}
+  ],
+  "post_actions": [
+    {"action": "post_outcome", "kind": "oncall_refire", "delay_seconds": 1200}
+  ]
+}

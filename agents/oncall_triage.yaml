@@ -1,0 +1,46 @@
+agent_id: oncall-triage-agent
+owner: rshao@datavisor.com
+version: 1.0.0
+model_version: claude-sonnet-4-7
+description: "Triages production alerts: reads metrics, logs, k8s state; proposes remediations."
+task_classes:
+  - name: triage_alert
+    slo_sli_kind: judge_pass_rate
+    slo_target: 0.75
+    slo_window: 7d
+    slo_budget_class: organic
+  - name: remediate_pod
+    slo_sli_kind: intervention_free_rate
+    slo_target: 0.95
+    slo_window: 30d
+    slo_budget_class: organic
+sealed_tools:
+  - name: vm_query
+    max_tier: T1
+    requires_intent: false
+  - name: loki_query
+    max_tier: T1
+    requires_intent: false
+  - name: kubectl_get
+    max_tier: T1
+    requires_intent: false
+  - name: kubectl_describe
+    max_tier: T1
+    requires_intent: false
+  - name: kubectl_scale
+    max_tier: T3
+    requires_intent: true
+    kwargs_constraints:
+      max_replicas_delta: 2
+  - name: kubectl_rollout
+    max_tier: T3
+    requires_intent: true
+  - name: slack_post
+    max_tier: T2
+    requires_intent: false
+  - name: runbook_search
+    max_tier: T1
+    requires_intent: false
+budget_hourly_usd: 5.00
+budget_hourly_tokens: 500000
+default_tier: T1
