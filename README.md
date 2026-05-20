@@ -48,7 +48,7 @@ boundary between agent reach and control plane. Documented examples:
 
 Full citations and the four-frame comparison (SLO / eval / durable-exec /
 Six Sigma) live in
-[`contexts/survey_sessions/agent_slo_error_budget_survey_20260519.md`](../../contexts/survey_sessions/agent_slo_error_budget_survey_20260519.md).
+[`agent_slo_error_budget_survey_20260519.md`](https://github.com/shaorui0/context-infrastructure/blob/main/contexts/survey_sessions/agent_slo_error_budget_survey_20260519.md) (in the `context-infrastructure` repo).
 
 ---
 
@@ -204,4 +204,4 @@ Full list in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md#9-future-work-v2).
   durable-execution counter-frame that sharpened the SLO argument.
 
 Full research base in
-[`contexts/survey_sessions/agent_slo_error_budget_survey_20260519.md`](../../contexts/survey_sessions/agent_slo_error_budget_survey_20260519.md).
+[`agent_slo_error_budget_survey_20260519.md`](https://github.com/shaorui0/context-infrastructure/blob/main/contexts/survey_sessions/agent_slo_error_budget_survey_20260519.md) (in the `context-infrastructure` repo).

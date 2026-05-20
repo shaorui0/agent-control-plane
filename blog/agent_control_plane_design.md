@@ -445,7 +445,7 @@ open http://localhost:8080/dashboard
 ```
 
 The deep-research base for the design lives at
-[`contexts/survey_sessions/agent_slo_error_budget_survey_20260519.md`](../../../contexts/survey_sessions/agent_slo_error_budget_survey_20260519.md).
+[`agent_slo_error_budget_survey_20260519.md`](https://github.com/shaorui0/context-infrastructure/blob/main/contexts/survey_sessions/agent_slo_error_budget_survey_20260519.md) (in the `context-infrastructure` repo).
 Every claim about Honeycomb, Replit, METR, Apollo, and the four-frame
 comparison is cited there with URLs and the date the source was pulled.
 
